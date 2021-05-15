@@ -88,7 +88,6 @@ def get_all_apps():
     app_dict: {Display Name: AppInfo Object}
         A dictionary of all apps
     """
-    all_apps = []
     app_dict = {}
 
     if platform == "linux":
@@ -98,7 +97,7 @@ def get_all_apps():
     elif platform == "win32":
         pass
 
-    return all_apps, app_dict
+    return app_dict
 
 
 def open_app(app_dict, key):
@@ -108,5 +107,5 @@ def open_app(app_dict, key):
 
 
 if __name__ == '__main__':
-    _, app_dict = get_all_apps()
+    app_dict = get_all_apps()
     open_app(app_dict, 'Firefox')
