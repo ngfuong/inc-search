@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkFont
 from inc_search._utils.utils import open_app
 import sys
 
@@ -11,6 +12,9 @@ class GUI:
         self.root.bind('<Escape>', self.close)
         self.root.bind('<Control-bracketleft>', self.close)
         self.root.bind("<Return>", self.on_select)
+        default_font = tkFont.nametofont("TkDefaultFont")
+        default_font.configure(size=20)
+        self.root.option_add("*Font", default_font)
 
         self.entry = tk.Entry(self.root, width=40)
         self.entry.pack()
