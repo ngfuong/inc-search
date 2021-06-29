@@ -25,6 +25,7 @@ parser.add_argument("-f",
                     "--fuzzy",
                     help="whether to use fuzzy seach or not",
                     action="store_true")
+parser.add_argument("-d", "--dark", help="use dark theme", action="store_true")
 
 
 def main(args):
@@ -39,7 +40,7 @@ def main(args):
 
     root = tk.Tk()
     GUI(root, data, trie, HEIGHT, WIDTH, True if not args.input else False,
-        args.fuzzy)
+        args.fuzzy, args.dark)
     root.mainloop()
 
 

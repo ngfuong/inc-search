@@ -8,37 +8,45 @@ from inc_search._utils.utils import open_app
 
 
 class GUI:
-    def __init__(self, root, data, trie, HEIGHT, WIDTH, launch, fuzzy):
+    def __init__(self, root, data, trie, HEIGHT, WIDTH, launch, fuzzy, dark):
         self.data = data
         self.trie = trie
         self.root = root
         self.launch = launch
         self.fuzzy = fuzzy
-        self.root.bind('<Escape>', self.close)
-        self.root.bind('<Control-bracketleft>', self.close)
-        self.root.bind("<Return>", self.on_select)
         default_font = tkFont.nametofont("TkDefaultFont")
         default_font.configure(size=20)
         self.root.option_add("*Font", default_font)
 
+        # Elements
         self.entry = tk.Entry(self.root, width=40)
         self.entry.pack()
         self.entry.focus()
-        self.entry.bind('<KeyRelease>', self.on_keyrelease)
-
         self.listbox = tk.Listbox(root, width=WIDTH, height=HEIGHT)
         self.listbox.pack()
+
+        # Binding
+        self.root.bind('<Escape>', self.close)
+        self.root.bind('<Control-bracketleft>', self.close)
+        self.root.bind("<Return>", self.on_select)
+        self.entry.bind('<KeyRelease>', self.on_keyrelease)
         self.listbox.bind("<j>", self.next_selection)
         self.listbox.bind("<k>", self.prev_selection)
+
+        # Configure
+        if not dark:
+            self.entry.configure(bg='white', fg='black')
+            self.listbox.configure(bg='white', fg='black')
+
         self.listbox_update([*self.data])
 
     def on_keyrelease(self, event):
 
-        # get text from entry
+        # Get text from entry
         value = event.widget.get()
         value = value.strip().lower()
 
-        # get data from app_dict
+        # Get data from app_dict
         if value == '':
             data = self.trie.search_with_wildcard('*')
         elif self.fuzzy:
