@@ -228,6 +228,7 @@ class FSA:
                                          with_count=with_count)
 
     def add(self, word, count=1):
+        """ To be overridden """
         pass
 
     def add_all(self, source):
